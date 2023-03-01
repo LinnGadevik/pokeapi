@@ -1,4 +1,4 @@
-document.querySelector('#search').addEventListener("click", getPokemon);
+document.querySelector('#search').addEventListener("click", getAllPokemons);
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -8,31 +8,42 @@ function lowerCaseName(string) {
     return string.toLowerCase();
 }
 
-function getPokemon(e) {
-  const name = document.querySelector("#pokemonName").value;
-  const pokemonName = lowerCaseName(name);
+// function getPokemon(e) {
+//   const name = document.querySelector("#pokemonName").value;
+//   const pokemonName = lowerCaseName(name);
 
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-    .then((response) => response.json())
-    .then((data) =>{
-       document.querySelector(".pokemonBox").innerHTML = `
-       <div>
-            <img src="${data.sprites.other["official-artwork"].front_default}"
-             alt="${capitalizeFirstLetter(data.name)}">
-        </div>
-        <div class="pokemonInfo">
-            <h1>${capitalizeFirstLetter(data.name)}</h1>
-            <p>weight: ${data.weight}</p>
-        </div>
-       `;
-    })
-    .catch((err)=> {
-        console.log("Pokemon not found", err);
-    });
+//     fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+//     .then((response) => response.json())
+//     .then((data) =>{
+//        document.querySelector(".pokemonBox").innerHTML = `
+//        <div>
+//             <img src="${data.sprites.other["official-artwork"].front_default}"
+//              alt="${capitalizeFirstLetter(data.name)}">
+//         </div>
+//         <div class="pokemonInfo">
+//             <h1>${capitalizeFirstLetter(data.name)}</h1>
+//             <p>weight: ${data.weight}</p>
+//         </div>
+//        `;
+//     })
+//     .catch((err)=> {
+//         console.log("Pokemon not found", err);
+//     });
 
-    e.preventDefault();
+//     e.preventDefault();
+// }
+
+// let getAllPokemons = null
+async function getAllPokemons() {
+    console.log("hejsan")
+    // fetch(`https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`)
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0')
+    const data =await response.json()
+    console.log (data)
+    console.log
 }
-let names = [];
+
+let names = [""];
 let sortedNames = names.sort();
 
 
@@ -71,3 +82,4 @@ function removeElements() {
         item.remove();
     });
 }
+
